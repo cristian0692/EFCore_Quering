@@ -15,7 +15,7 @@ namespace EF_Code_Quering
         public DbSet<User> Users { get; set; }
 
 
-        public BlogDbContext(DbContextOptions options) : base(options)
+        public BlogDbContext() : base()
         {
 
         }
