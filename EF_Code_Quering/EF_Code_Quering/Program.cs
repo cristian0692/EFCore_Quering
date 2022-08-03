@@ -1,6 +1,7 @@
 ﻿using EF_Code_Quering.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics;
 
 namespace EF_Code_Quering 
 {
@@ -9,8 +10,34 @@ namespace EF_Code_Quering
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            SimpleQuering();
-            Console.WriteLine("End ");
+            //SimpleQuering();
+            //cheking the performance
+            FasterSelect();
+            Console.WriteLine("End");
+            Console.ReadLine();
+        }
+
+        private static void FasterSelect()
+        {
+            var timer = new Stopwatch();
+            var db = new BlogDbContext();
+            timer.Start();
+            var post = db.Posts.ToList();
+            timer.Stop();
+            Console.WriteLine("Simple "+timer.ElapsedTicks);
+            timer.Reset();
+            timer.Start();
+            var post1 = db.Posts
+                .AsNoTracking()
+                .ToArray();
+            timer.Stop(); 
+            Console.WriteLine("Fast   " +timer.ElapsedTicks);
+            timer.Reset();
+            timer.Start();
+            var post2 = db.Posts
+                .ToArray();
+            timer.Stop();
+            Console.WriteLine("Fast 2 " + timer.ElapsedTicks);
         }
 
         private static void SimpleQuering()
