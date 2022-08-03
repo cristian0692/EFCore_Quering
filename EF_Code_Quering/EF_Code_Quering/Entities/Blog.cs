@@ -16,6 +16,7 @@ namespace EF_Code_Quering.Entities
 
         public string Url { get; set; }
 
-        public virtual List<Blog> Blogs { get; set; } = new();
+        public virtual List<Post> Posts { get; set; } = new();
+
     }
 }
